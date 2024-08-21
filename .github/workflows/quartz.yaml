@@ -58,16 +58,16 @@ jobs:
       # Quartz customization with content and config
       # ============================================
 
-      - name: Checkout Source
+      - name: Checkout content
         uses: actions/checkout@v4
         with:
           path: 'content'
 
-      - name: List all
+      - name: Apply content
         run: rsync -va --exclude .git --exclude .quartz content/ quartz/content/
 
-      - run: ls quartz/content
-     
+      - name: Apply configuration
+        run: rsync -va content/.quartz/ quartz/  
 
       # Build
       # =====
