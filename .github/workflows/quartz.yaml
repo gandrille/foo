@@ -66,10 +66,14 @@ jobs:
       - name: Apply content
         run: rsync -va --exclude .git --exclude .quartz content/ quartz/content/
 
-      - name: Apply configuration
+      - name: Apply custom configuration
         continue-on-error: true
         run: |
           [ -d content/.quartz/ ] && rsync -va content/.quartz/ quartz/
+
+      - name: Move README.md to index.md
+        if: ${{ hashFiles('quartz/content/README.md') != '' }}
+        run: mv quartz/content/README.md quartz/content/index.md
 
       # Build
       # =====
@@ -81,12 +85,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: quartz/public
-
-# cp /home/etienne/documents/linux-notes/* content/
-# mv content/quartz.*.ts .
-# npx quartz build
-       
+          path: quartz/public     
 
   # Deploy job
   deploy:
