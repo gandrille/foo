@@ -35,8 +35,35 @@ jobs:
     env:
       ZIM_VERSION: 0.75.2
       GENERATE_PDF: false
+
     steps:
-    
-      - name: First test
-        run: touch foo && ls 
+      - name: Checkout Quartz
+        uses: actions/checkout@v4
+        with:
+          repository: 'jackyzha0/quartz'
+          path: 'quartz'
+
+      - name: List all
+        run: find .
+
+      - name: Checkout Source
+        uses: actions/checkout@v4
+        with:
+          path: 'quartz/content'
+
+      - name: List all
+        run: find .
+
+
+
+
+
+# git clone https://github.com/jackyzha0/quartz.git
+# cd quartz
+# npm i
+# npx quartz create --strategy new --links shortest
+# cp /home/etienne/documents/linux-notes/* content/
+# mv content/quartz.*.ts .
+# npx quartz build
+
 
