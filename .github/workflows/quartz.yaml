@@ -33,8 +33,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      ZIM_VERSION: 0.75.2
-      GENERATE_PDF: false
+      QUARTZ_LINKS: shortest
 
     steps:
       - uses: actions/setup-node@v4
@@ -43,14 +42,18 @@ jobs:
 
       # Empty quartz setup
       # ==================
-          
+
       - name: Checkout Quartz
         uses: actions/checkout@v4
         with:
           repository: 'jackyzha0/quartz'
           path: 'quartz'
-      - run: cd quartz && npm i
-      - run: cd quartz && npx quartz create --strategy new --links shortest
+      - name: Npm dependency installation
+        working-directory: ./quartz
+        run: npm i
+      - name: Quartz init
+        working-directory: ./quartz
+        run: npx quartz create --strategy new --links ${QUARTZ_LINKS}
       
       # Quartz customization with content and config
       # ============================================
@@ -67,18 +70,14 @@ jobs:
       # =====
 
       - name: Build content
-        run: cd quartz && npx quartz build
+        working-directory: ./quartz
+        run: npx quartz build
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v4
         with:
           path: quartz/public
 
-
-# git clone https://github.com/jackyzha0/quartz.git
-# cd quartz
-# npm i
-# npx quartz create --strategy new --links shortest
 # cp /home/etienne/documents/linux-notes/* content/
 # mv content/quartz.*.ts .
 # npx quartz build
