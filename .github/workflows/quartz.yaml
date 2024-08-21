@@ -68,7 +68,7 @@ jobs:
 
       - name: Apply configuration
         run: |
-          [ -d content/.quartz/ ] && rsync -va content/.quartz/ quartz/  
+          [ -d content/.quartzAA/ ] && rsync -va content/.quartz/ quartz/  
 
       # Build
       # =====
