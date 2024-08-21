@@ -67,8 +67,9 @@ jobs:
         run: rsync -va --exclude .git --exclude .quartz content/ quartz/content/
 
       - name: Apply configuration
+        continue-on-error: true
         run: |
-          [ -d content/.quartzAA/ ] && rsync -va content/.quartz/ quartz/  
+          [ -d content/.quartzAA/ ] && rsync -va content/.quartz/ quartz/
 
       # Build
       # =====
