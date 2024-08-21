@@ -64,7 +64,7 @@ jobs:
           path: 'content'
 
       - name: List all
-        run: rsync -va content quartz/content
+        run: rsync -va content/ quartz/content/
 
       - run: ls quartz/content
      
